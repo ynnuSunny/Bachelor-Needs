@@ -8,9 +8,10 @@
 </head>
 <body>
 
-    <form action="" method="post">
-        <input type="email" name="email">
-        <input type="text" name = "name">
+    <form method="post" action="{% url 'loginVarification' %}">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter Your Name">
+        <input type="password" name = "password" placeholder="Enter Your Password">
         <input type="submit">
     </form>
     
