@@ -8,5 +8,7 @@ urlpatterns =[
     path('home/',views.home,name="home"),
     path('createAccount/',views.createAccount,name="createAccount"),
     path('logout/',views.logout,name = "logout"),
-    path('loginVarification/',views.loginVarification, name="loginVarification")
+    path('loginVarification/',views.loginVarification, name="loginVarification"),
+    path('enterOtp/',views.goOtp, name="goOtp"),
+    path('checkOtp/',views.checkOtp,name="checkOtp")
 ]

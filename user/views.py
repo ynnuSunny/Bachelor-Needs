@@ -7,6 +7,8 @@ import pymongo
 from email import message
 from typing import Collection
 from pymongo import MongoClient
+import smtplib
+import random
 
 
 
@@ -50,6 +52,23 @@ def logout(request):
 
 def goCreateAccount(request):
   return render(request,"signup.html")
+def goOtp(request):
+  return render(request,"enterOtp.html")
+
+def checkOtp(request):
+  if(request.method=='POST'):
+    db = DBConnect.getInstance()
+    collection = db["users"]
+    email = request.session['email']
+    otp = request.POST['otp']
+
+    if(collection.count_documents({"email":email ,"otp":otp})!=1):
+      message = {"msg": "invalid opt please try again with correct otp"}
+      return render(request, 'enterOtp.html', message)     
+    
+    
+    return redirect("/home") 
+
 
 def home(request):
   try:
@@ -76,7 +95,7 @@ def loginVarification(request):
 
     if(collection.count_documents({"email":email ,"password":password})!=1):
       message = {"msg": "invalid email or password"}
-      return render(request, 'html/login.html', message)     
+      return render(request, 'login.html', message)     
 
     request.session['email'] = email
     
@@ -104,8 +123,23 @@ def createAccount(request):
       message = {"msg": msg}
       return render(request, 'signup.html', message)
     
+    #for sending otp in user email
+    otp = ""
+    for i in range(6):
+      n = random.randint(0,9)
+      otp += str(n)
     
+    sender_email = "bachelorneed@gmail.com"
+    sender_pass = "csjcwenzefdejpwc"
+    rec_email = email
+    otp_msg  = "Your 6 digit otp is : "+otp
+     
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    server.starttls()
+    server.login(sender_email,sender_pass)
+    server.sendmail(sender_email,rec_email,otp)
 
+    #saving user information in database
     userInfo = {
         "name": fName+" "+lName,
         "email": email,
@@ -116,13 +150,15 @@ def createAccount(request):
         "homeAddress": None,
         "notification": [],
         "dp": "nodp.jpg",
-        "cover":"noCover.jpeg"
+        "cover":"noCover.jpeg",
+        "otp": otp
 
     }
 
     request.session['email'] = email
+    
 
     collection.insert_one(userInfo)
-    return redirect("/home")
+    return redirect("/enterOtp")
 
 
