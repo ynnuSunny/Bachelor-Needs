@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
+from serviceProvider import views as spViews
 
 urlpatterns =[
-    path('',views.index,name = "index"),
+    path('',views.main,name = "main"),
+    path('index/',views.index,name = "index"),
     path('login/',views.login,name="login"),
     path('signup/',views.goCreateAccount,name="signup"),
     path('home/',views.home,name="home"),
@@ -11,4 +13,7 @@ urlpatterns =[
     path('loginVarification/',views.loginVarification, name="loginVarification"),
     path('enterOtp/',views.goOtp, name="goOtp"),
     path('checkOtp/',views.checkOtp,name="checkOtp")
+    
+    
+    
 ]

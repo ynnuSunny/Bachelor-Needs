@@ -1,6 +1,5 @@
 {% load static %}
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,13 +24,13 @@
                 <form method="post" action="{% url 'loginVarification' %}">
                     {% csrf_token %}
                     <div class="input-field">
-                        <input type="text" name = "email"placeholder="Enter your email" required>
-                        <i class="uil uil-envelope icon"></i>
+                        <input type="text" name = "nid" placeholder="Enter your Nid" required>
+                        <i class="uil uil-wallet icon"></i>
                     </div>
                     <div class="input-field">
-                        <input type="password" name = "password"class="password" placeholder="Enter your password" required>
-                        <i class="uil uil-lock icon"></i>
-                        <i class="uil uil-eye-slash showHidePw"></i>
+                        <input type="text" name ="phoneNumber" class="password" placeholder="Enter your 11 digit phone number" required>
+                        <i class="uil uil-phone icon"></i>
+                        
                     </div>
 
                     <div class="checkbox-text">
@@ -59,21 +58,20 @@
             <div class="form signup">
                 <span class="title">Registration</span>
 
-                <form method="post" action="{% url 'createAccount' %}">
+                <form method="post" action="{% url 'serviceProvider:goOtp' %}">
                     {% csrf_token %}
                     <div class="input-field">
                         <input type="text" name ="name" placeholder="Enter your name" required>
                         <i class="uil uil-user"></i>
                     </div>
                     <div class="input-field">
-                        <input type="text" name="email" placeholder="Enter your email" required>
-                        <i class="uil uil-envelope icon"></i>
+                        <input type="text" name ="nid" placeholder="Enter your Nid" required>
+                        <i class="uil uil-wallet icon"></i>
                     </div>
-                    
                     <div class="input-field">
-                        <input type="password" name="password" class="password" placeholder="Confirm a password" required>
-                        <i class="uil uil-lock icon"></i>
-                        <i class="uil uil-eye-slash showHidePw"></i>
+                        <input type="text" name ="phoneNumber" class="password" placeholder="Enter your 11 digit phone number" required>
+                        <i class="uil uil-phone icon"></i>
+                        
                     </div>
 
                     <div class="checkbox-text">
@@ -108,20 +106,20 @@
 </html>
 
 
+
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Document</title>
 </head>
 <body>
-
     <form method="post" action="{% url 'loginVarification' %}">
         {% csrf_token %}
-        <input type="email" name="email" placeholder="Enter Your Name">
-        <input type="password" name = "password" placeholder="Enter Your Password">
+        <input type="text" name="nid" placeholder="Enter Your Nid">
+        <input type="text" name = "phoneNumber" placeholder="Enter Your Phone Number">
         <input type="submit">
     </form>
     

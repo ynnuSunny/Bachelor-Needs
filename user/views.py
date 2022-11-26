@@ -29,6 +29,17 @@ class DBConnect:
         DBConnect.__instance = db
 # Create your views here.
 
+
+
+
+
+def main(request):
+  try:
+    request.session['email']
+    return redirect('/home')
+  except:
+    return render(request,"main.html")
+
 def index(request):
   try:
     request.session['email']
@@ -110,8 +121,7 @@ def createAccount(request):
     collection = db['users']
     
     # taking information via POST method
-    fName = request.POST['first_name']
-    lName = request.POST['last_name']
+    name = request.POST['name']
     email = request.POST['email']
     password = request.POST['password']
 
@@ -141,7 +151,7 @@ def createAccount(request):
 
     #saving user information in database
     userInfo = {
-        "name": fName+" "+lName,
+        "name": name,
         "email": email,
         "password": password,
         "gender": None,
