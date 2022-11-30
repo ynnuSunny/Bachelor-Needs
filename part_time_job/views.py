@@ -30,8 +30,30 @@ class DBConnect:
 
 
 def job_home(request):
-    diction={}
-    return render(request, "job_home.html",context=diction)
+    return render(request, "job_home.html")
 
-def postjob(request):
+def post_job(request):
     return render(request,"post_job.html")
+
+def createjob(request):
+  if request.method =='POST':
+    db = DBConnect.getInstance()
+    collection = db['jobcreateinfo']
+    # taking information via POST method
+
+    job_title =request.POST['job_title']
+    job_description= request.POST['job_description']
+    salary = request.POST['salary']
+    job_poster = request.POST['job_poster']
+
+
+    #saving information in database
+    jobInfo = {
+        "job_title": job_title,
+        "job_description": job_description,
+        "salary": salary,
+        "job_poster": job_poster,
+    }
+
+    collection.insert_one(jobInfo)
+    return redirect("/job_home")

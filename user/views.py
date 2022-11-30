@@ -14,7 +14,7 @@ import random
 
 class DBConnect:
    __instance = None
-   @staticmethod 
+   @staticmethod
    def getInstance():
       if DBConnect.__instance == None:
         DBConnect()
@@ -75,10 +75,10 @@ def checkOtp(request):
 
     if(collection.count_documents({"email":email ,"otp":otp})!=1):
       message = {"msg": "invalid opt please try again with correct otp"}
-      return render(request, 'enterOtp.html', message)     
-    
-    
-    return redirect("/home") 
+      return render(request, 'enterOtp.html', message)
+
+
+    return redirect("/home")
 
 
 def home(request):
@@ -94,7 +94,7 @@ def profile(request):
   collection = db['users']
   email = request.session['email']
   data = collection.find_one({"email":email})
-  
+
 
 #Login Via Email and Password
 def loginVarification(request):
@@ -106,11 +106,11 @@ def loginVarification(request):
 
     if(collection.count_documents({"email":email ,"password":password})!=1):
       message = {"msg": "invalid email or password"}
-      return render(request, 'login.html', message)     
+      return render(request, 'login.html', message)
 
     request.session['email'] = email
-    
-    return redirect("/home") 
+
+    return redirect("/home")
 
 
 
@@ -119,31 +119,31 @@ def createAccount(request):
   if request.method =='POST':
     db = DBConnect.getInstance()
     collection = db['users']
-    
+
     # taking information via POST method
     name = request.POST['name']
     email = request.POST['email']
     password = request.POST['password']
 
     msg = None
-    
-    
+
+
     if(collection.count_documents({"email": email})!=0):
       msg = "Email is already used"
       message = {"msg": msg}
       return render(request, 'signup.html', message)
-    
+
     #for sending otp in user email
     otp = ""
     for i in range(6):
       n = random.randint(0,9)
       otp += str(n)
-    
+
     sender_email = "bachelorneed@gmail.com"
     sender_pass = "csjcwenzefdejpwc"
     rec_email = email
     otp_msg  = "Your 6 digit otp is : "+otp
-     
+
     server = smtplib.SMTP('smtp.gmail.com',587)
     server.starttls()
     server.login(sender_email,sender_pass)
@@ -166,9 +166,34 @@ def createAccount(request):
     }
 
     request.session['email'] = email
-    
+
 
     collection.insert_one(userInfo)
     return redirect("/enterOtp")
 
 
+def createjob(request):
+  if request.method =='POST':
+    db = DBConnect.getInstance()
+    collection = db['jobcreateinfo']
+    # taking information via POST method
+
+    job_title =request.POST['job_title']
+    job_description= request.POST['job_description']
+    salary = request.POST['salary']
+
+
+
+    #saving information in database
+    jobInfo = {
+        "job_title": job_title,
+        "job_description": job_description,
+        "salary": salary,
+    }
+
+    collection.insert_one(jobInfo)
+    return redirect("/job_home")
+
+
+def post_job(request):
+    return render(request,"post_job.html")
