@@ -4,16 +4,12 @@ from serviceProvider import views as spViews
 
 urlpatterns =[
     path('',views.main,name = "main"),
-    path('index/',views.index,name = "index"),
-    path('login/',views.login,name="login"),
-    path('signup/',views.goCreateAccount,name="signup"),
+    path('index/',views.index,name = "user-index"),
+    path('login/',views.login,name="user-login"),
+    path('signup/',views.signup,name="user-signup"),
     path('home/',views.home,name="home"),
-    path('createAccount/',views.createAccount,name="createAccount"),
-    path('logout/',views.logout,name = "logout"),
-    path('loginVarification/',views.loginVarification, name="loginVarification"),
-    path('enterOtp/',views.goOtp, name="goOtp"),
-    path('checkOtp/',views.checkOtp,name="checkOtp")
-    
-    
+    path('logout/',views.logout,name = "user-logout"),
+    path('userVarification/',views.userVarification, name="userVarification"),
+
     
 ]

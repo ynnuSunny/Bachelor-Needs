@@ -48,56 +48,12 @@ def index(request):
     return render(request,"index.html")
 
 def login(request):
-  try:
-    request.session['email']
-    return redirect('/home')
-  except:
-    return render(request,"login.html")
-
-def logout(request):
-  session_keys = list(request.session.keys())
-  for key in session_keys:
-    del request.session[key]
-  return render(request,"index.html")
-
-
-def goCreateAccount(request):
-  return render(request,"signup.html")
-def goOtp(request):
-  return render(request,"enterOtp.html")
-
-def checkOtp(request):
-  if(request.method=='POST'):
-    db = DBConnect.getInstance()
-    collection = db["users"]
-    email = request.session['email']
-    otp = request.POST['otp']
-
-    if(collection.count_documents({"email":email ,"otp":otp})!=1):
-      message = {"msg": "invalid opt please try again with correct otp"}
-      return render(request, 'enterOtp.html', message)     
-    
-    
-    return redirect("/home") 
-
-
-def home(request):
-  try:
-    request.session['email']
-    return render(request,"home.html")
-  except:
-    return render(request,"index.html")
-
-
-def profile(request):
-  db = DBConnect.getInstance()
-  collection = db['users']
-  email = request.session['email']
-  data = collection.find_one({"email":email})
-  
-
-#Login Via Email and Password
-def loginVarification(request):
+  if request.method == 'GET':
+    try:
+      request.session['email']
+      return redirect('/home')
+    except:
+      return render(request,"login.html")
   if(request.method=='POST'):
     db = DBConnect.getInstance()
     collection = db["users"]
@@ -110,12 +66,16 @@ def loginVarification(request):
 
     request.session['email'] = email
     
-    return redirect("/home") 
+    return redirect("/home")
 
+def signup(request):
+  if request.method == 'GET':
+    try:
+      request.session['email']
+      return redirect('/home')
+    except:
+      return render(request,"login.html")
 
-
-#Create Account
-def createAccount(request):
   if request.method =='POST':
     db = DBConnect.getInstance()
     collection = db['users']
@@ -131,7 +91,7 @@ def createAccount(request):
     if(collection.count_documents({"email": email})!=0):
       msg = "Email is already used"
       message = {"msg": msg}
-      return render(request, 'signup.html', message)
+      return render(request, 'login.html', message)
     
     #for sending otp in user email
     otp = ""
@@ -169,6 +129,44 @@ def createAccount(request):
     
 
     collection.insert_one(userInfo)
-    return redirect("/enterOtp")
+    return render(request, 'enterOtp.html')
 
+def logout(request):
+  session_keys = list(request.session.keys())
+  for key in session_keys:
+    del request.session[key]
+  return render(request,"main.html")
+
+
+
+
+def userVarification(request):
+  if(request.method=='POST'):
+    db = DBConnect.getInstance()
+    collection = db["users"]
+    email = request.session['email']
+    otp = request.POST['otp']
+
+    if(collection.count_documents({"email":email ,"otp":otp})!=1):
+      message = {"msg": "invalid opt please try again with correct otp"}
+      return render(request, 'enterOtp.html', message)     
+    
+    
+    return redirect("/home") 
+
+
+def home(request):
+  try:
+    request.session['email']
+    return render(request,"home.html")
+  except:
+    return render(request,"index.html")
+
+
+def profile(request):
+  db = DBConnect.getInstance()
+  collection = db['users']
+  email = request.session['email']
+  data = collection.find_one({"email":email})
+  
 
