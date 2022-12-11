@@ -10,17 +10,17 @@
 <body>
       <h1>Hello</h1>
       <a href="{% url 'serviceProvider:sp-logout' %}">Logout</a>
-      <form class="ui form" style="padding: 50px;" method="POST" action="{% url 'serviceProvider:sp-registration' %}">
+      <form class="ui form" style="padding: 50px;" method="POST" action="{% url 'serviceProvider:update-sp-registration' %}">
         {% csrf_token %}
         <h4 class="ui dividing header">Information</h4>
         <div class="field">
           <label>Name</label>
           <div class="two fields">
             <div class="field">
-              <input type="text" name="first-name" placeholder="First Name [required]" required>
+              <input type="text" name="first-name" value= "{{ data.name }}" required >
             </div>
             <div class="field">
-              <input type="text" name="last-name" placeholder="Last Name [required]" required>
+              <input type="text" name="last-name" value= "{{ data.name }}" required>
             </div>
           </div>
         </div>
@@ -28,10 +28,10 @@
             <label>Compnay Name [If Any?]</label>
             <div class="two fields">
               <div class="field">
-                <input type="text" name="company" placeholder="Company">
+                <input type="text" name="company" value="{{ data.company }}">
               </div>
               <div class="field">
-                <input type="text" name="trade-licence" placeholder="Trade Licence">
+                <input type="text" name="trade-licence" value="{{ data.tradelicence}}" >
               </div>
             </div>
           </div>
@@ -39,10 +39,10 @@
           <label>Address</label>
           <div class="fields">
             <div class="twelve wide field">
-              <input type="text" name="address" placeholder="Street Address[required]" required>
+              <input type="text" name="address" value="{{ data.address }}" required>
             </div>
             <div class="four wide field">
-              <input type="text" name="zip-code" placeholder="Zip Code" >
+              <input type="text" name="zip-code" value="{{ data.zipcode }}" >
             </div>
           </div>
         </div>
@@ -50,10 +50,10 @@
             <label>Contact Information</label>
             <div class="two fields">
               <div class="field">
-                <input type="text" name="phone-number" placeholder="Phone Number[required]" required>
+                <input type="text" name="phone-number" value="{{ data.phonenumber}}" required>
               </div>
               <div class="field">
-                <input type="text" name="email" placeholder="Email [if any]">
+                <input type="text" name="email" value= "{{ data.email }}">
               </div>
             </div>
           </div>
@@ -61,7 +61,7 @@
           <div class="field">
             <label>State</label>
             <select class="ui fluid dropdown" name="state" required>
-              <option value="">State</option>
+              <option value="{{ data.state }}">State</option>
             <option value="dhaka">Dhaka</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -80,7 +80,7 @@
           </div>
           <div class="field">
             <label>Service Type</label>
-            <select class="ui fluid dropdown" name="service-type" required>
+            <select class="ui fluid dropdown" name="service-type" value="{{ data.servicetype }}" required>
               <option value="">Service Type</option>
             <option value="bua">Bua</option>
             <option value="wifi-dis">Wifi/Dis</option>
@@ -95,7 +95,7 @@
         <div class="ui form">
             <div class="field">
               <label>Description</label>
-              <textarea name="description" required placeholder="Write about your service/amount .. everything"></textarea>
+              <textarea name="description" required value="">{{ data.description }}</textarea>
             </div>
             
              </div>

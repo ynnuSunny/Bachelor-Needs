@@ -21,7 +21,7 @@
             <div class="form login">
                 <span class="title">Login</span>
 
-                <form method="post" action="{% url 'loginVarification' %}">
+                <form method="post" action="{% url 'serviceProvider:sp-login' %}">
                     {% csrf_token %}
                     <div class="input-field">
                         <input type="text" name = "nid" placeholder="Enter your Nid" required>
@@ -33,14 +33,7 @@
                         
                     </div>
 
-                    <div class="checkbox-text">
-                        <div class="checkbox-content">
-                            <input type="checkbox" id="logCheck">
-                            <label for="logCheck" class="text">Remember me</label>
-                        </div>
-                        
-                        <a href="#" class="text">Forgot password?</a>
-                    </div>
+                    
 
                     <div class="input-field button">
                         <input type="submit" value="Login">
@@ -48,9 +41,9 @@
                 </form>
 
                 <div class="login-signup">
-                    <span class="text">Not a member?
+                    <!-- <span class="text">Not a member?
                         <a href="#" class="text signup-link">Signup Now</a>
-                    </span>
+                    </span> -->
                 </div>
             </div>
 
@@ -58,12 +51,9 @@
             <div class="form signup">
                 <span class="title">Registration</span>
 
-                <form method="post" action="{% url 'serviceProvider:goOtp' %}">
+                <form method="post" action="{% url 'serviceProvider:sp-login' %}">
                     {% csrf_token %}
-                    <div class="input-field">
-                        <input type="text" name ="name" placeholder="Enter your name" required>
-                        <i class="uil uil-user"></i>
-                    </div>
+                    
                     <div class="input-field">
                         <input type="text" name ="nid" placeholder="Enter your Nid" required>
                         <i class="uil uil-wallet icon"></i>
@@ -107,21 +97,3 @@
 
 
 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="post" action="{% url 'loginVarification' %}">
-        {% csrf_token %}
-        <input type="text" name="nid" placeholder="Enter Your Nid">
-        <input type="text" name = "phoneNumber" placeholder="Enter Your Phone Number">
-        <input type="submit">
-    </form>
-    
-</body>
-</html> -->

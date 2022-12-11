@@ -31,33 +31,9 @@ class DBConnect:
 
 
 
-def goSpLogin(request):
-  return render(request,"login2.html")
-
-def goSpSingup(request):
-  return render(request,"signup2.html")
-
-def goOtp(request):
-  return render(request,"enterOtp2.html")
-
-#
-def loginVarification2(request):
-  if(request.method=='POST'):
-    db = DBConnect.getInstance()
-    collection = db["serviceProvider"]
-    email = request.POST['email']
-    password = request.POST['password']
-
-    if(collection.count_documents({"email":email ,"password":password})!=1):
-      message = {"msg": "invalid email or password"}
-      return render(request, 'login.html', message)     
-
-    request.session['email'] = email
-    
-    return redirect("/home") 
-
-
-def checkOtp2(request):
+def authentication(request):
+  if request.method=='GET':
+    return render(request,"enterOtp2.html")
   if(request.method=='POST'):
     db = DBConnect.getInstance()
     collection = db["serviceProviders"]
@@ -68,33 +44,37 @@ def checkOtp2(request):
       message = {"msg": "invalid opt please try again with correct otp"}
       return render(request, 'enterOtp.html', message)     
     
-    
-    return render(request,"registration.html")
+    data =  collection.find_one({"nid":nid})
+    contest = {
+         'data' : data
+    }
+    return render(request,"update-sp-registration.html",contest)
 
-def signUp(request):
+def login(request):
+  if request.method=='GET':
+    return render(request,"login2.html")
   if request.method =='POST':
     db = DBConnect.getInstance()
     collection = db['serviceProviders']
     
     # taking information via POST method
-    name = request.POST['name']
     nid = request.POST['nid']
     phoneNumber = request.POST['phoneNumber']
     otp = "1234"
     msg = None
-    
+    request.session['nid'] = nid
     
     if(collection.count_documents({"nid": nid})!=0 or collection.count_documents({"phoneNumber": phoneNumber})!=0):
       msg = "This nid or Phone number already Used"
       message = {"msg": msg}
-      return render(request, 'signup.html', message)
+      return render(request,"enterOtp2.html",message) 
     
     #for sending otp in user email
     
 
     #saving user information in database
     userInfo = {
-        "name": name,
+        "name": None,
         "nid": nid,
         "phoneNumber": phoneNumber,
         "gender": None,
@@ -110,3 +90,98 @@ def signUp(request):
 
     collection.insert_one(userInfo)
     return render(request,"enterOtp2.html") 
+
+
+def registration(request):
+  if request.method=='GET':
+    db = DBConnect.getInstance()
+    collection = db['service']
+    nid = request.session['nid']
+    
+    if(collection.count_documents({"nid": nid})!=0 ):
+      data =  collection.find_one({"nid":nid})
+      contest = {
+         'data' : data
+      }
+      return render(request,"update-sp-registration.html",contest)
+    return render(request,"registration.html")
+  if(request.method=='POST'):
+    db = DBConnect.getInstance()
+    collection = db['service']
+    nid = request.session['nid'] 
+    userInfo = {
+        "name": request.POST['first-name']+" "+request.POST['last-name'],
+        "nid": nid,
+        "company":request.POST['company'],
+        "tradelicence": request.POST['trade-licence'],
+        "gender": request.POST['company'],
+        "address": request.POST['address'],
+        "zipcode": request.POST['zip-code'],
+        "phonenumber":request.POST["phone-number"],
+        "email":request.POST['email'],
+        "state":request.POST['state'],
+        "servicetype":request.POST['service-type'],
+        "description": request.POST['description'],
+        "image": "nodp.jpg",
+        
+    }
+    contest = {
+      "data":userInfo
+    }
+    collection.insert(userInfo)
+    return render(request,"update-sp-registration.html",contest)
+
+    
+def update_registration(request):
+  if(request.method=='GET'):
+    db = DBConnect.getInstance()
+    collection = db['service']
+    nid = request.session['nid']
+    
+    if(collection.count_documents({"nid": nid})!=0 ):
+      data =  collection.find_one({"nid":nid})
+      contest = {
+         'data' : data
+      }
+      return render(request,"update-sp-registration.html",contest)
+    return render(request,"registration.html")
+    
+  if(request.method=='POST'):
+    db = DBConnect.getInstance()
+    collection = db['service']
+    nid = request.session['nid'] 
+    userInfo = {
+        "name": request.POST['first-name']+" "+request.POST['last-name'],
+        "nid": nid,
+        "company":request.POST['company'],
+        "tradelicence": request.POST['trade-licence'],
+        "gender": request.POST['company'],
+        "address": request.POST['address'],
+        "zipcode": request.POST['zip-code'],
+        "phonenumber":request.POST["phone-number"],
+        "email":request.POST['email'],
+        "state":request.POST['state'],
+        "servicetype":request.POST['service-type'],
+        "description": request.POST['description'],
+        "image": "nodp.jpg",
+        
+    }
+    oldData =  collection.find_one({"nid":nid})
+    newData =  { "$set": userInfo }
+    collection.update_one(oldData,newData)
+    contest = {
+      'data':userInfo
+    }
+    return render(request,"update-sp-registration.html",contest)
+    
+
+
+def user_side(request):
+  pass
+
+
+def logout(request):
+  session_keys = list(request.session.keys())
+  for key in session_keys:
+    del request.session[key]
+  return render(request,"main.html")

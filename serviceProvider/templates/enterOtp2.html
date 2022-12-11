@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>In your email address 6 digit otp has been sent, Please Check and write the otp here</h2>
-    <form method="post" action="{% url 'serviceProvider:checkOtp2' %}" >
+    <form method="post" action="{% url 'serviceProvider:authentication' %}" >
         {% csrf_token %}
            <input type="text" name = "otp">
            <input type="submit">
