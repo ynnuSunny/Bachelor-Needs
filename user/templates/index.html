@@ -1,0 +1,75 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'temp1.css' %}" />
+    <title>Join With Us</title>
+  </head>
+  <body>
+  <div class="menu-bar">
+      <h1 class="logo">BachelorPoint<span>.Com</span></h1>
+      <ul>
+        <li><a href="{% url 'main' %}">Home</a></li>
+        <li><a href="#">Log In</a></li>
+        <!---<li><a href="#">SignUp</a>-->
+        </li>
+        <li><a href="#">Services <i class="fas fa-caret-down"></i></a>
+
+            <div class="dropdown-menu">
+                <ul>
+                  <li><a href="#">Wifi Services</a></li>
+                  <li><a href="#">Maid Services</a></li>
+                  <li>
+                    <a href="#">Meal Services <i class="fas fa-caret-right"></i></a>
+                    
+                    <div class="dropdown-menu-1">
+                      <ul>
+                        <li><a href="#">Wifi Services</a></li>
+                        <li><a href="#">Maid Services</a></li>
+                        <li><a href="#">Meal Services</a></li>
+                        <li><a href="#">Team-4</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li><a href="#">FAQ</a></li>
+                </ul>
+              </div>
+        </li>
+        <li><a href="#">Contact us</a></li>
+      </ul>
+    </div>
+    <div class="fcontent" style="display: flex; height: 500px;  box-shadow: 10px 10px 5px 12px lightwhite; background: black;">
+    <div class="content1" style="width: 49%; border-right: 5px solid orange;">
+       <h3 class="sub1" style="color: white">Log In As a User</h3>
+
+       <a href="index.html">
+       <button class="button-76" role="button"><a href="{% url 'login' %}"><span class="text">Log In</span></a></button></a>
+    </div>
+    <p>
+
+    <div class="content2" style="width: 49%">
+       <h3 class="sub2" style="color: white">Log In As a Service Provider</h3>
+
+       <button class="button-77" role="button"><a href="{% url 'serviceProvider:goSpLogin' %}"><span class="text">Log In</span></a></button>
+    </div>
+</div>
+ <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d767.4399779584338!2d90.44960676508013!3d23.797954324238145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7d8042caf2d%3A0x686fa3e360361ddf!2sUnited%20International%20University!5e0!3m2!1sen!2sbd!4v1670599200980!5m2!1sen!2sbd" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </p>
+
+
+<!-- <table border="1">
+    <tr>
+         <td> <h1>Service Provider </h1></td>
+         <td> <h1> User </h1></td>
+    </tr>
+    <tr>
+        <td><h3><a href="{% url 'serviceProvider:goSpLogin' %}">login</a></h3></td>
+        <td><h3><a href="{% url 'login' %}">Login</a></h3></td>
+    </tr>
+    <tr>
+        <td><h3><a href="{% url 'serviceProvider:goSpSingup' %}">Registarion</a></h3></td>
+        <td><h3><a href="{% url 'signup' %}">Signup</a></h3></td>
+    </tr>
+</table> -->

@@ -1,0 +1,27 @@
+{% for x in posts %}
+
+        <h3>{{name}}</h3>
+        posted on : {{x.date}}
+        <p>{{ x.content }}</p>
+        {% if x.photo is not none%}
+            <img src= "{{x.photo}}"> <br>
+        {% endif %}
+        
+            
+    <form method="post" action="{% url 'shop:addComment' %}">
+        {% csrf_token %}
+        <input type="text" placeholder="write comment" name="comment">
+        <input type = "hidden" name="postid" value={{x.postNo}}>
+        <input type = "submit" value="comment" name="commentBtn">
+    </form>
+    comment:<br>
+            {% for c in x.comment %}
+                {{c.commenterName}}: 
+                {{c.comment}}
+                <br> 
+            
+            {% endfor %}
+
+
+
+{% endfor %}

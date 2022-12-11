@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!--<title>part time job form</title>-->
+</head>
+<body>
+    <div class="half1">
+    <div class="container">
+        <div class="forms">
+            <div class="form login">
+                <span class="title">Post a job Here</span>
+
+                <form method="post" action="{% url 'createjob' %}">
+                    {% csrf_token %}
+                    <div class="input-field">
+                        <input type="text" name = "job_title"placeholder="job title" required>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" name = "job_description"class="job_description" placeholder="Write job description here" required>
+                    </div>
+
+                    <div class="input-field">
+                        <input type="text" name = "salary" class="salary" placeholder="salary range" required>
+                    </div>
+
+                    <!-- <div class="input-field">
+                         <input type="file" name="job poster" class="job_poster" placeholder="Job poster" accept="image/*">
+                    </div> -->
+
+                    <div class="input-field button">
+                        <input type="submit" value="post">
+                    </div>
+                </form>
+
+
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+    <script src="{% static 'script.js' %}"></script>
+
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+
+    <form method="post" action="{% url 'loginVarification' %}">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter Your Name">
+        <input type="password" name = "password" placeholder="Enter Your Password">
+        <input type="submit">
+    </form>
+
+</body>
+</html> -->
