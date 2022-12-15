@@ -5,17 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Part time job</title>
+    <title>Searching JOB</title>
 </head>
 <body>
-    <h1>Welcom to JOB center</h1>
-    <form class="form-inline my-2 my-lg-0" action="{% url 'part_time_job:job_home' %}">
-    <input class="form-control mr-sm-2" type="search"   placeholder="Find a job" aria-label="Search" name="search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Find</button>
-    </form>
-
-    <a href="{% url 'part_time_job:post_job' %}"> Post a job</a>
-
     {% for i in data %}
     <div class="card-body">
     <h5 class="card1" style="font-family: arial; font-weight: bold; font-size: 17px;">Job Title : {{ i.job_title }}</h5>
