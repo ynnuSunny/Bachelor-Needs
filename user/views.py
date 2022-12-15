@@ -163,12 +163,13 @@ def home(request):
     collection = db['homePosts']
     data = collection.find({"postType":"basic"})
     fs = FileSystemStorage()
-
+    allData = []
     for i in data:
        img = i['images']
        i['images'] = fs.url(img)
+       allData.append(i)
     contest = {
-         'data' : data
+         'data' : allData
       }
     return render(request,"home.html",contest)
   except:
