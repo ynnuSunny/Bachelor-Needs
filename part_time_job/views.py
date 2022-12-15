@@ -37,10 +37,10 @@ def job_home(request):
     collection = db['jobcreateinfo']
     data = collection.find({})
     fs = FileSystemStorage()
-    contest = {
+    content = {
          'data' : data
       }
-    return render(request,"job_home.html",contest)
+    return render(request,"job_home.html",content)
 
 
 def post_job(request):
@@ -74,5 +74,16 @@ def Search_job(request):
     search_post = request.GET.get('search')
     db= DBConnect.getInstance()
     collection = db['jobcreateinfo']
-    collection.find( { "job_title": {"$regex": search_post,"$options":'i'} }, { "job_description": {"$regex": search_post,"$options":'i'} }  )
-    return render(request,"search_job_show.html")
+    data = collection.find({ "job_description": {"$regex": search_post,"$options":'i'}})
+    data= list(data)
+    data1 = collection.find({ "job_title": {"$regex": search_post,"$options":'i'}})
+    # print(data)
+    for i in data1:
+        if(i in data):
+            continue
+        data.append(i)
+    fs = FileSystemStorage()
+    content = {
+         'data' : data
+      }
+    return render(request,"search_job_show.html",content)
