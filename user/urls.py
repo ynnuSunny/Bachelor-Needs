@@ -10,7 +10,9 @@ urlpatterns =[
     path('home/',views.home,name="home"),
     path('logout/',views.logout,name = "user-logout"),
     path('userVarification/',views.userVarification, name="userVarification"),
-    path('userAddPost/',views.userAddPost,name = 'user-add-post')
+    path('userAddPost/',views.userAddPost,name = 'user-add-post'),
+    path('userProfile',views.profile,name='user-profile'),
+    path('userUpdateProfile',views.updateProfile,name='user-update-profile')
 
     
 ]

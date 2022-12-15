@@ -177,11 +177,68 @@ def home(request):
 
 
 def profile(request):
-  db = DBConnect.getInstance()
-  collection = db['users']
-  email = request.session['email']
-  data = collection.find_one({"email":email})
-  
+  try:
+    request.session['email']
+    email = request.session['email']
+    db = DBConnect.getInstance()
+    collection = db['users']
+    data = collection.find_one({"email":email})
+    fs = FileSystemStorage()
+    
+    img = data['dp']
+    data['dp'] = fs.url(img)
+    
+    contest = {
+         'data' : data
+      }
+    return render(request,"profile.html",contest)
+  except:
+    return render(request,"index.html")
+def updateProfile(request):
+  # try:
+    if(request.method=='GET'):
+      request.session['email']
+      email = request.session['email']
+      db = DBConnect.getInstance()
+      collection = db['users']
+      data = collection.find_one({"email":email})
+      fs = FileSystemStorage()
+      
+      img = data['dp']
+      data['dp'] = fs.url(img)
+      
+      contest = {
+          'data' : data
+        }
+      return render(request,"updateProfile.html",contest)
+    if request.method =='POST':
+      request.session['email']
+      email = request.session['email']
+      db = DBConnect.getInstance()
+      collection = db['users']
+      uploaded_file = request.FILES['dp']
+      fs = FileSystemStorage()   
+      photo_name=fs.save(uploaded_file.name, uploaded_file)
+      old_data = collection.find_one({'email':email})
+      new_data ={
+        
+        "phone_number": request.POST['phone-number'],
+        "bloodGroup": request.POST['bloodGroup'],
+        "homeAddress": request.POST['homeAddress'],
+        
+        "dp": photo_name,
+        
+      }
+      newData =  { "$set": new_data }
+    collection.update_one(old_data,newData)
+    
+    contest = {
+          'data' : collection.find_one({"email":email})
+        }
+    return render(request,"profile.html",contest)
+  # except:
+  #   return render(request,"index.html")
+
 def userAddPost(request):
   if(request.method=='GET'):
     return render(request,"addPost.html")
