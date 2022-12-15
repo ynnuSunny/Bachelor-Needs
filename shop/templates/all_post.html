@@ -1,6 +1,8 @@
 {% for x in posts %}
 
-        <h3>{{name}}</h3>
+        <h3>{{name}}</h3> <br>
+        {{x.price}} tk<br>
+        {{x.location}} <br>
         posted on : {{x.date}}
         <p>{{ x.content }}</p>
         {% if x.photo is not none%}

@@ -60,11 +60,14 @@ def savePost(request):
     except:
         pass
     
+    price=0
     
-    
-    price=int(request.POST['price'])
-
-    
+    try:
+        price=int(request.POST['price'])
+    except:
+        price=0
+    category=request.POST['category']
+    location=request.POST['location']
     
     
     
@@ -85,12 +88,15 @@ def savePost(request):
         "photo":photo_name,
         "comment":[],
         "price":price,
+        "category":category,
+        "location":location,
         "date":datetime.datetime.now(),
     }
     print(post)
     db=DBConnect.getInstance()
     collection=db["post"]
     collection.insert_one(post)
+    print(post)
     return render(request,"create_post.html",{"msg":"posted"})
 
 def addComment(request):
@@ -112,15 +118,20 @@ def addComment(request):
     
     return redirect(request.META.get('HTTP_REFERER'))
 
+def showPostCategory(request):
+    return  render(request,"caterogy_type.html")
+
+
 
 def seeAllPost(request):
     email=request.session['email']
+    category=request.GET['category']
     db = DBConnect.getInstance()
     collection=db["post"]
     fs= FileSystemStorage()
     allPosts=[]
     usr=getUsr(email)
-    posts = collection.find({})
+    posts = collection.find({"category":category})
     for i in posts:
         comments=getAllComment(i)
         
@@ -129,7 +140,10 @@ def seeAllPost(request):
             "content": i['content'],
             "comment":comments,
             "date":i['date'],
-            "photo":None
+            "photo":None,
+            "category":category,
+            "price": i['price'],
+            "location":i['location'],
         }
         
         if(i['photo']):
@@ -141,7 +155,6 @@ def seeAllPost(request):
     data={}
     data['name']=usr['name']
     data['posts']=allPosts
-    print(data)
     return  render(request,"all_post.html",data)
     
     
@@ -155,3 +168,4 @@ def shopHome(request):
     collection = db['users']
     usr=collection.find_one({"email":email})
     return render(request,"create_post.html",{"name":usr['name']})
+

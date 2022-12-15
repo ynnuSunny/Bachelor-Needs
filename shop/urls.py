@@ -6,5 +6,6 @@ urlpatterns =[
  path('shopHome/',views.shopHome,name="shopHome"),
  path('addComment/',views.addComment,name="addComment"),
  path('seeAllPost/',views.seeAllPost,name="seeAllPost"),
+ path('showPostCategory/',views.showPostCategory,name="showPostCategory"),
  
 ]

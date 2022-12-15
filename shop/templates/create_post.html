@@ -6,12 +6,27 @@
 
 </script>
 {% endif %}
+<a href=" {% url 'shop:showPostCategory' %} "> show posts</a>
 <form method="post" action="{% url 'shop:savePost' %}" enctype="multipart/form-data">
     {% csrf_token %}
         <p>{{name}}</p>    
-    <textarea name="postcontent" placeholder="What's on your mind, ....." spellcheck="false" required></textarea>
-    <input name="price" type="number" min="0">
-    <input type="file" name="photo">
+    <textarea name="postcontent" placeholder="Description " spellcheck="false" required></textarea> <br>
+    <input name="price" type="number" min="0" required> <br>
+    <select name="category" id="category" required>
+      <option value="Education">Education</option>
+      <option value="Mobile">Mobile</option>
+      <option value="Electronics">Electronics</option>
+      <option value="HomeandLiving">Home and Livings</option>
+      <option value="BoysFashion">Boys' Fashion</option>
+      <option value="GirlsFashion">Girls' Fashion</option>
+      <option value="Grocery">Grocery</option>
+      <option value="Others">Others</option>
+    </select> <br>
+    <textarea name="location" placeholder="Location " spellcheck="false" required></textarea> <br>
+
+   <br>
+
+    <input type="file" name="photo" required>
 
     <button name="create">Post</button>
   </form>
