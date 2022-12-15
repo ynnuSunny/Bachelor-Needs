@@ -2,6 +2,7 @@ import collections
 import email
 from django.shortcuts import HttpResponse, redirect, render
 import requests
+from django.core.files.storage import FileSystemStorage
 import json
 import pymongo
 from email import message
@@ -158,7 +159,18 @@ def userVarification(request):
 def home(request):
   try:
     request.session['email']
-    return render(request,"home.html")
+    db = DBConnect.getInstance()
+    collection = db['homePosts']
+    data = collection.find({"postType":"basic"})
+    fs = FileSystemStorage()
+
+    for i in data:
+       img = i['images']
+       i['images'] = fs.url(img)
+    contest = {
+         'data' : data
+      }
+    return render(request,"home.html",contest)
   except:
     return render(request,"index.html")
 
@@ -169,4 +181,30 @@ def profile(request):
   email = request.session['email']
   data = collection.find_one({"email":email})
   
+def userAddPost(request):
+  if(request.method=='GET'):
+    return render(request,"addPost.html")
+  if(request.method=='POST'):
+    db = DBConnect.getInstance()
+    collection = db["homePosts"]
+    email = request.session['email']
+    uploaded_file = request.FILES['images']
+    fs = FileSystemStorage()   
+    photo_name=fs.save(uploaded_file.name, uploaded_file)
+    
+    postInfo = {
+       'postAdmin':email,
+       'state' : request.POST['state'],
+       'postType' : 'basic',
+       'location': request.POST['location'],
+       'phonenumber': request.POST['phone-number'],
+       'rent': request.POST['rent'],
+       'description': request.POST['description'],
+       'images': photo_name
 
+    }
+    collection.insert(postInfo)
+    return render(request,"home.html")
+
+def viewPost(request):
+  pass

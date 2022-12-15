@@ -177,7 +177,15 @@ def update_registration(request):
 
 
 def user_side(request):
-  pass
+  if(request.method=="GET"):
+    db = DBConnect.getInstance()
+    collection = db['service']
+    data = collection.find({"servicetype":"bua"})
+    contest = {
+         'data' : data
+      }
+    return render(request,"userSide.html",contest)
+     
 
 
 def logout(request):
