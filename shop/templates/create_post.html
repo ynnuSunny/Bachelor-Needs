@@ -1,0 +1,17 @@
+{% if msg is not none %}
+
+<script>
+
+  alert("{{msg}}");
+
+</script>
+{% endif %}
+<form method="post" action="{% url 'shop:savePost' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+        <p>{{name}}</p>    
+    <textarea name="postcontent" placeholder="What's on your mind, ....." spellcheck="false" required></textarea>
+    <input name="price" type="number" min="0">
+    <input type="file" name="photo">
+
+    <button name="create">Post</button>
+  </form>

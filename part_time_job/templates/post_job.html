@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <link rel="stylesheet" href="job.css" /> -->
+  <link rel="stylesheet" href="{% static 'job.css' %}" />
+  <title>Post A Job</title>
+</head>
+<body>
+<div class="mm">
+   <div class="heading" style="margin-left: 36%; font-size: 40px; font-family: impact; padding-top: 20px;">
+        <h1>Post A Job</h1>
+      </div>
+<div class="formbold-main-wrapper">
+
+    <div class="formbold-form-wrapper" style="background-color: #eee;">
+
+      <form action="{% url 'createjob' %}" method="POST">
+      {% csrf_token %}
+
+        <div class="formbold-input-flex">
+          <div>
+              <label for="text" class="formbold-form-label" > Contact</label>
+              <input
+              type="text"
+              name="contact"
+              id="contact"
+              placeholder="Type here"
+              class="formbold-form-input"
+              />
+          </div>
+
+
+          <div>
+              <label class="formbold-form-label">Job Type</label>
+
+              <select class="formbold-form-input" name="job_type" id="job_type">
+              <option value="">Select</option>
+              <option value="part_time">Part time</option>
+              <option value="full_time">Full time</option>
+              </select>
+          </div>
+        </div>
+
+
+
+        <div class="formbold-mb-3">
+          <label for="age" class="formbold-form-label"> Job Title </label>
+          <input
+            type="text"
+            name="job_title"
+            id="job_title"
+            class="formbold-form-input"
+          />
+        </div>
+
+
+        <div class="formbold-mb-3">
+          <label for="message" class="formbold-form-label">
+            Job Description
+          </label>
+          <textarea
+            rows="6"
+            name="job_description"
+            id="job_description"
+            class="formbold-form-input"
+          ></textarea>
+        </div>
+        <div>
+            <label for="text" class="formbold-form-label">Salary</label>
+            <input
+            type="text"
+            name="salary"
+            id="salary"
+            placeholder="Type here"
+            class="formbold-form-input"
+            />
+        </div>
+
+        <!-- <div class="formbold-form-file-flex">
+          <label for="upload" class="formbold-form-label">
+            Upload Resume
+          </label>
+          <input
+            type="file"
+            name="upload"
+            id="upload"
+            class="formbold-form-file"
+          />
+        </div> -->
+
+        <button class="formbold-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+  </div>
+</body>
+</html>
+
+  <style>
+
+  </style>

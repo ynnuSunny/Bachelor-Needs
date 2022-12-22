@@ -23,7 +23,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('user.urls')),
-    path('serviceProvider/', include(('serviceProvider.urls', 'serviceProvider'), namespace='serviceProvider'))
+    path('serviceProvider/', include(('serviceProvider.urls', 'serviceProvider'), namespace='serviceProvider')),
+    path('shop/', include(('shop.urls', 'shop'), namespace='shop')),
+    path('part_time_job/', include(('part_time_job.urls', 'part_time_job'), namespace='part_time_job'))
     
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
