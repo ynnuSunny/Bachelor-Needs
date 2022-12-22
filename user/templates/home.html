@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
     <link rel="stylesheet" href="{% static 'userStyle/style1.css' %}" />
     <link rel="stylesheet" href="{% static 'userStyle/home.css' %}" />
+    
     <title>Home|BachelorPoint</title>
     <style>
       .search input[type=text]{
@@ -57,30 +58,14 @@
         <li><a href="{% url 'user-profile' %}">Profile</a></li>
         <li><a href="{% url 'user-add-post' %}">Add Posts</a></li>
         <!---<li><a href="#">SignUp</a>-->
-        </li>
-        <li><a href="#">Services <i class="fas fa-caret-down"></i></a>
-
-            <div class="dropdown-menu">
-                <ul>
-                  <li><a href="{% url 'serviceProvider:user-side' %}">Wifi Services</a></li>
-                  <li><a href="{% url 'serviceProvider:user-side' %}">Maid Services</a></li>
-                  <li>
-                    <a href="{% url 'serviceProvider:user-side' %}">Meal Service</a> 
-               
-                  </li>
-                  <li><a href="#">FAQ</a></li>
-                </ul>
-              </div>
-        </li>
+        <li><a href="{% url 'serviceProvider:user-side' %}">Services</a></li>
         <li><a href="{% url 'part_time_job:job_home' %}">Find Job</a></li>
-        <li><a href="{% url 'shop:shopHome' %}">Shop Section</a></li>
+        <li><a href="{% url 'shop:showPostCategory' %}">Shop Section</a></li>
         <li><a href="{% url 'user-logout' %}">Logout</a></li>
       </ul>
     </div>
    
-  <div style="position: fixed; top: 20; height: 100px; margin-left: 600px;">
-    
-  </div>
+ 
     
  <br>
 

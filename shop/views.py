@@ -29,7 +29,7 @@ def getAllComment(post):
 
 class DBConnect:
    __instance = None
-   @staticmethod 
+   @staticmethod
    def getInstance():
       if DBConnect.__instance == None:
         DBConnect()
@@ -51,7 +51,6 @@ def getUsr(email_):
 
 def savePost(request):
     email=request.session['email']
-    
     photo_name=None
     try:
         uploaded_file = request.FILES["photo"]
@@ -59,38 +58,44 @@ def savePost(request):
         photo_name=fs.save(uploaded_file.name, uploaded_file)
     except:
         pass
-    
-    
-    
-    price=int(request.POST['price'])
 
-    
-    
-    
-    
+    price=0
+
+    try:
+        price=int(request.POST['price'])
+    except:
+        price=0
+    category=request.POST['category']
+    location=request.POST['location']
+
+
+
     postContent=request.POST['postcontent']
-    
+
     #empty post
     if(len(postContent)==0):
         return render(request, 'html/create_post.html',{"msg":"post cannot be empty"})
-    
 
 
-    
 
-    
+
+
+
     post={
         "email": email,
         "content":postContent,
         "photo":photo_name,
         "comment":[],
         "price":price,
+        "category":category,
+        "location":location,
         "date":datetime.datetime.now(),
     }
     print(post)
     db=DBConnect.getInstance()
     collection=db["post"]
     collection.insert_one(post)
+    print(post)
     return render(request,"create_post.html",{"msg":"posted"})
 
 def addComment(request):
@@ -99,8 +104,8 @@ def addComment(request):
     commenter=request.session['email']
     if(len(content)==0):
         return redirect("seeAllPost")
-    
-    
+
+
     db=DBConnect.getInstance()
     collection=db["post"]
     postData=collection.find_one({"_id":ObjectId(postid)})
@@ -109,42 +114,49 @@ def addComment(request):
     postData["comment"]=allComments
     collection.delete_one({"_id":ObjectId(postid)})
     collection.insert_one(postData)
-    
+
     return redirect(request.META.get('HTTP_REFERER'))
+
+def showPostCategory(request):
+    return  render(request,"caterogy_type.html")
+
 
 
 def seeAllPost(request):
     email=request.session['email']
+    category=request.GET['category']
     db = DBConnect.getInstance()
     collection=db["post"]
     fs= FileSystemStorage()
     allPosts=[]
     usr=getUsr(email)
-    posts = collection.find({})
+    posts = collection.find({"category":category})
     for i in posts:
         comments=getAllComment(i)
-        
+
         postShow={
             "postNo":i["_id"],
             "content": i['content'],
             "comment":comments,
             "date":i['date'],
-            "photo":None
+            "photo":None,
+            "category":category,
+            "price": i['price'],
+            "location":i['location'],
         }
-        
+
         if(i['photo']):
             postShow['photo']=fs.url(i['photo'])
-            
-        
+
+
         allPosts.append(postShow)
-    
+
     data={}
     data['name']=usr['name']
     data['posts']=allPosts
-    print(data)
     return  render(request,"all_post.html",data)
-    
-    
+
+
 
 
 
@@ -155,3 +167,88 @@ def shopHome(request):
     collection = db['users']
     usr=collection.find_one({"email":email})
     return render(request,"create_post.html",{"name":usr['name']})
+
+def deletePost(request):
+    postid=request.GET['postid']
+
+    db=DBConnect.getInstance()
+    collection=db["post"]
+    collection.delete_one({"_id":ObjectId(postid)})
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def myPosts(request):
+    email=request.session['email']
+
+    db = DBConnect.getInstance()
+    collection=db["post"]
+    fs= FileSystemStorage()
+    allPosts=[]
+    usr=getUsr(email)
+    posts = collection.find({"email":email})
+    for i in posts:
+        comments=getAllComment(i)
+
+        postShow={
+            "postNo":i["_id"],
+            "content": i['content'],
+            "comment":comments,
+            "date":i['date'],
+            "photo":None,
+            "category":i["category"],
+            "price": i['price'],
+            "location":i['location'],
+        }
+
+        if(i['photo']):
+            postShow['photo']=fs.url(i['photo'])
+
+
+        allPosts.append(postShow)
+
+    data={}
+    data['name']=usr['name']
+    data['posts']=allPosts
+    return  render(request,"my_posts.html",data)
+
+def search_product(request):
+    search_post = request.GET.get('search')
+    db= DBConnect.getInstance()
+    email=request.session['email']
+    usr=getUsr(email)
+    collection = db['post']
+    data = collection.find({ "content": {"$regex": search_post,"$options":'i'}})
+    data= list(data)
+    data1 = collection.find({ "HomeandLiving": {"$regex": search_post,"$options":'i'}})
+
+    for i in data1:
+        if(i in data):
+            continue
+        data.append(i)
+    fs= FileSystemStorage()
+    allPosts=[]
+
+
+    for i in data:
+        comments=getAllComment(i)
+
+        postShow={
+            "postNo":i["_id"],
+            "content": i['content'],
+            "comment":comments,
+            "date":i['date'],
+            "photo":None,
+            "category":i["category"],
+            "price": i['price'],
+            "location":i['location'],
+        }
+
+        if(i['photo']):
+            postShow['photo']=fs.url(i['photo'])
+
+
+        allPosts.append(postShow)
+
+    data={}
+    data['name']=usr['name']
+    data['posts']=allPosts
+    return  render(request,"all_post.html",data)

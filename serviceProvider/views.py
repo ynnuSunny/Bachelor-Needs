@@ -9,6 +9,7 @@ from typing import Collection
 from pymongo import MongoClient
 import smtplib
 import random
+from bson.objectid import ObjectId
 
 
 
@@ -44,11 +45,20 @@ def authentication(request):
       message = {"msg": "invalid opt please try again with correct otp"}
       return render(request, 'enterOtp.html', message)     
     
-    data =  collection.find_one({"nid":nid})
+    collection = db["service"]
+    if(collection.count_documents({"nid":nid})!=1):
+      return render(request,"registration.html")
+
+    userInfo= collection.find_one({"nid":nid})
     contest = {
-         'data' : data
+      "data":userInfo
     }
     return render(request,"update-sp-registration.html",contest)
+def update_post(oldData , newData ):
+    db = DBConnect.getInstance()
+    collection = db['service']
+    collection.delete_one({"_id":ObjectId(oldData['_id'])})
+    collection.insert_one(newData)
 
 def login(request):
   if request.method=='GET':
@@ -128,7 +138,8 @@ def registration(request):
     contest = {
       "data":userInfo
     }
-    collection.insert(userInfo)
+    collection.insert_one(userInfo)
+    print(userInfo)
     return render(request,"update-sp-registration.html",contest)
 
     
@@ -168,7 +179,7 @@ def update_registration(request):
     }
     oldData =  collection.find_one({"nid":nid})
     newData =  { "$set": userInfo }
-    collection.update_one(oldData,newData)
+    update_post(oldData,newData)
     contest = {
       'data':userInfo
     }
@@ -180,7 +191,7 @@ def user_side(request):
   if(request.method=="GET"):
     db = DBConnect.getInstance()
     collection = db['service']
-    data = collection.find({"servicetype":"bua"})
+    data = collection.find({})
     contest = {
          'data' : data
       }
