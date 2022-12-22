@@ -36,10 +36,12 @@ def job_home(request):
     db = DBConnect.getInstance()
     collection = db['jobcreateinfo']
     data = collection.find({})
+    data = list(data)
     fs = FileSystemStorage()
     content = {
          'data' : data
       }
+    print(content)
     return render(request,"job_home.html",content)
 
 
@@ -54,20 +56,23 @@ def createjob(request):
     # taking information via POST method
 
     email=request.session['email']
+    contact=request.POST['contact']
     job_title =request.POST['job_title']
     job_description= request.POST['job_description']
     salary = request.POST['salary']
-
-
-
+    job_type = request.POST['job_type']
     #saving information in database
     jobInfo = {
         "email" : email,
         "job_title": job_title,
         "job_description": job_description,
-        "salary": salary,
+        "contact" : contact,
+        "salary" : salary,
+        "job_type" : job_type
+
     }
-    collection.insert_one(jobInfo)
+    print(jobInfo)
+    #collection.insert_one(jobInfo)
     return redirect("/job_home")
 
 def Search_job(request):

@@ -1,84 +1,102 @@
 {% load static %}
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- ===== Iconscout CSS ===== -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
-    <!-- ===== CSS ===== -->
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-
-    <!--<title>part time job form</title>-->
+  <!-- <link rel="stylesheet" href="job.css" /> -->
+  <link rel="stylesheet" href="{% static 'job.css' %}" />
+  <title>Post A Job</title>
 </head>
 <body>
-    <div class="half1">
-    <div class="container">
-        <div class="forms">
-            <div class="form login">
-                <span class="title">Post a job Here</span>
+<div class="mm">
+   <div class="heading" style="margin-left: 36%; font-size: 40px; font-family: impact; padding-top: 20px;">
+        <h1>Post A Job</h1>
+      </div>
+<div class="formbold-main-wrapper">
 
-                <form method="post" action="{% url 'createjob' %}">
-                    {% csrf_token %}
-                    <div class="input-field">
-                        <input type="text" name = "job_title"placeholder="job title" required>
-                    </div>
-                    <div class="input-field">
-                        <input type="text" name = "job_description"class="job_description" placeholder="Write job description here" required>
-                    </div>
-                    <!-- <select name="job_type" id="job_type">
-                      <option value="Select">Select</option>
-                      <option value="Part Time">Part Time</option>
-                      <option value="Full Time">Full Time</option>
-                    </select> -->
+    <div class="formbold-form-wrapper" style="background-color: #eee;">
 
-                    <div class="input-field">
-                        <input type="text" name = "salary" class="salary" placeholder="salary range" required>
-                    </div>
+      <form action="{% url 'createjob' %}" method="POST">
+      {% csrf_token %}
 
-                    <div class="input-field button">
-                        <input type="submit" value="post">
-                    </div>
-                </form>
+        <div class="formbold-input-flex">
+          <div>
+              <label for="text" class="formbold-form-label" > Contact</label>
+              <input
+              type="text"
+              name="contact"
+              id="contact"
+              placeholder="Type here"
+              class="formbold-form-input"
+              />
+          </div>
 
 
-            </div>
+          <div>
+              <label class="formbold-form-label">Job Type</label>
 
-
+              <select class="formbold-form-input" name="job_type" id="job_type">
+              <option value="">Select</option>
+              <option value="part_time">Part time</option>
+              <option value="full_time">Full time</option>
+              </select>
+          </div>
         </div>
+
+
+
+        <div class="formbold-mb-3">
+          <label for="age" class="formbold-form-label"> Job Title </label>
+          <input
+            type="text"
+            name="job_title"
+            id="job_title"
+            class="formbold-form-input"
+          />
+        </div>
+
+
+        <div class="formbold-mb-3">
+          <label for="message" class="formbold-form-label">
+            Job Description
+          </label>
+          <textarea
+            rows="6"
+            name="job_description"
+            id="job_description"
+            class="formbold-form-input"
+          ></textarea>
+        </div>
+        <div>
+            <label for="text" class="formbold-form-label">Salary</label>
+            <input
+            type="text"
+            name="salary"
+            id="salary"
+            placeholder="Type here"
+            class="formbold-form-input"
+            />
+        </div>
+
+        <!-- <div class="formbold-form-file-flex">
+          <label for="upload" class="formbold-form-label">
+            Upload Resume
+          </label>
+          <input
+            type="file"
+            name="upload"
+            id="upload"
+            class="formbold-form-file"
+          />
+        </div> -->
+
+        <button class="formbold-btn">Submit</button>
+      </form>
     </div>
-    </div>
-
-
-
-
-
-    <script src="{% static 'script.js' %}"></script>
-
+  </div>
+  </div>
 </body>
 </html>
 
+  <style>
 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-
-    <form method="post" action="{% url 'loginVarification' %}">
-        {% csrf_token %}
-        <input type="email" name="email" placeholder="Enter Your Name">
-        <input type="password" name = "password" placeholder="Enter Your Password">
-        <input type="submit">
-    </form>
-
-</body>
-</html> -->
+  </style>
