@@ -6,6 +6,13 @@
 
 </script>
 {% endif %}
+<form method="get" action="{% url 'shop:search_product' %}"  >
+  <input type="text" placeholder="search" name="search" >
+  
+  <input type = "submit" value="comment" name="commentBtn" >
+</form>
+
+
 <a href=" {% url 'shop:showPostCategory' %} "> show posts</a> <br>
 <a href=" {% url 'shop:myPosts' %} "> My Posts </a>
 <form method="post" action="{% url 'shop:savePost' %}" enctype="multipart/form-data">

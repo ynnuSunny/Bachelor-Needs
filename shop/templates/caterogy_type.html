@@ -1,3 +1,9 @@
+<form method="get" action="{% url 'shop:search_product' %}"  >
+    <input type="text" placeholder="search" name="search" >
+    
+    <input type = "submit" value="comment" name="commentBtn" >
+</form>
+
 <a href="{% url 'shop:seeAllPost' %}?category=Education"><input type="submit" value="Education"></a>
 <a href="{% url 'shop:seeAllPost' %}?category=Mobile"><input type="submit" value="Mobile"></a>
 <a href="{% url 'shop:seeAllPost' %}?category=Electronics"><input type="submit" value="Electronics"></a>

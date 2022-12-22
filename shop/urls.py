@@ -9,4 +9,5 @@ urlpatterns =[
  path('showPostCategory/',views.showPostCategory,name="showPostCategory"),
  path('myPosts/',views.myPosts,name="myPosts"),
  path('deletePost/',views.deletePost,name="deletePost"),
+ path('search_product/',views.search_product,name="search_product"),
 ]

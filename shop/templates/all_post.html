@@ -1,3 +1,10 @@
+<form method="get" action="{% url 'shop:search_product' %}"  >
+    <input type="text" placeholder="search" name="search" >
+    
+    <input type = "submit" value="comment" name="commentBtn" >
+</form>
+
+
 {% for x in posts %}
 
         <h3>{{name}}</h3> <br>

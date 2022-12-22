@@ -211,4 +211,46 @@ def myPosts(request):
     return  render(request,"my_posts.html",data)
     
     
+def search_product(request):
+    search_post = request.GET.get('search')
+    db= DBConnect.getInstance()
+    email=request.session['email']
+    usr=getUsr(email)
+    collection = db['post']
+    data = collection.find({ "content": {"$regex": search_post,"$options":'i'}})
+    data= list(data)
+    data1 = collection.find({ "HomeandLiving": {"$regex": search_post,"$options":'i'}})
     
+    for i in data1:
+        if(i in data):
+            continue
+        data.append(i)
+    fs= FileSystemStorage()
+    allPosts=[]
+    
+    
+    for i in data:
+        comments=getAllComment(i)
+        
+        postShow={
+            "postNo":i["_id"],
+            "content": i['content'],
+            "comment":comments,
+            "date":i['date'],
+            "photo":None,
+            "category":i["category"],
+            "price": i['price'],
+            "location":i['location'],
+        }
+        
+        if(i['photo']):
+            postShow['photo']=fs.url(i['photo'])
+            
+        
+        allPosts.append(postShow)
+    
+    data={}
+    data['name']=usr['name']
+    data['posts']=allPosts
+    return  render(request,"all_post.html",data)
+      

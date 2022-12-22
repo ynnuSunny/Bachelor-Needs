@@ -110,3 +110,4 @@ def signUp(request):
 
     collection.insert_one(userInfo)
     return render(request,"enterOtp2.html") 
+
