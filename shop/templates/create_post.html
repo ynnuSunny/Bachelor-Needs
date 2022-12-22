@@ -6,7 +6,8 @@
 
 </script>
 {% endif %}
-<a href=" {% url 'shop:showPostCategory' %} "> show posts</a>
+<a href=" {% url 'shop:showPostCategory' %} "> show posts</a> <br>
+<a href=" {% url 'shop:myPosts' %} "> My Posts </a>
 <form method="post" action="{% url 'shop:savePost' %}" enctype="multipart/form-data">
     {% csrf_token %}
         <p>{{name}}</p>    
