@@ -92,12 +92,12 @@ body {
 }
 
 .dropdown-menu-1 {
-  display: none;
+  /* display: none; */
 }
 
 .dropdown-menu ul li:hover .dropdown-menu-1 {
   display: block;
-  position: absolute;
+ 
   left: 150px;
   top: 0;
   background-color: var(--color-black);
