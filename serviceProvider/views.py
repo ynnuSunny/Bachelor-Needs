@@ -120,13 +120,14 @@ def registration(request):
     collection = db['service']
     nid = request.session['nid'] 
     userInfo = {
-        "name": request.POST['first-name']+" "+request.POST['last-name'],
+        "f_name": request.POST['first-name'],
+        "l_name":request.POST['last-name'],
         "nid": nid,
         "company":request.POST['company'],
-        "tradelicence": request.POST['trade-licence'],
-        "gender": request.POST['company'],
+        # "tradelicence": request.POST['trade-licence'],
+        # "gender": request.POST['company'],
         "address": request.POST['address'],
-        "zipcode": request.POST['zip-code'],
+        # "zipcode": request.POST['zip-code'],
         "phonenumber":request.POST["phone-number"],
         "email":request.POST['email'],
         "state":request.POST['state'],
@@ -162,24 +163,25 @@ def update_registration(request):
     collection = db['service']
     nid = request.session['nid'] 
     userInfo = {
-        "name": request.POST['first-name']+" "+request.POST['last-name'],
+        "f_name": request.POST['first-name'],
+        "l_name": request.POST['last-name'],
         "nid": nid,
         "company":request.POST['company'],
-        "tradelicence": request.POST['trade-licence'],
-        "gender": request.POST['company'],
+        # "tradelicence": request.POST['trade-licence'],
+        # "gender": request.POST['company'],
         "address": request.POST['address'],
-        "zipcode": request.POST['zip-code'],
+        # "zipcode": request.POST['zip-code'],
         "phonenumber":request.POST["phone-number"],
         "email":request.POST['email'],
         "state":request.POST['state'],
         "servicetype":request.POST['service-type'],
         "description": request.POST['description'],
-        "image": "nodp.jpg",
+        # "image": "nodp.jpg",
         
     }
     oldData =  collection.find_one({"nid":nid})
-    newData =  { "$set": userInfo }
-    update_post(oldData,newData)
+    # newData =  { "$set": userInfo }
+    update_post(oldData,userInfo)
     contest = {
       'data':userInfo
     }

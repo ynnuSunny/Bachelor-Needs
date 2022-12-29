@@ -4,109 +4,137 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Registration Form</title>
+    <style>
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+    }
+    .card-registration .select-arrow {
+    top: 13px;
+    }
+    </style>
 </head>
 <body>
-      <h1>Hello</h1>
-      <a href="{% url 'serviceProvider:sp-logout' %}">Logout</a>
-      <form class="ui form" style="padding: 50px;" method="POST" action="{% url 'serviceProvider:update-sp-registration' %}">
-        {% csrf_token %}
-        <h4 class="ui dividing header">Information</h4>
-        <div class="field">
-          <label>Name</label>
-          <div class="two fields">
-            <div class="field">
-              <input type="text" name="first-name" value= "{{ data.name }}" required >
-            </div>
-            <div class="field">
-              <input type="text" name="last-name" value= "{{ data.name }}" required>
+    <section class="h-100 bg-dark">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+              <div class="card card-registration my-4">
+                <div class="row g-0">
+                  <div class="col-xl-6 d-none d-xl-block">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
+                      alt="Sample photo" class="img-fluid"
+                      style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card-body p-md-5 text-black">
+                      <h3 class="mb-5 text-uppercase">Service Provider  Update registration form</h3>
+                    <form action="{% url 'serviceProvider:update-sp-registration' %}" method="POST"> 
+                        {% csrf_token %}
+
+                    
+                      <div class="row">
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input type="text" id="form3Example1m" name="first-name" value= "{{ data.f_name }}"  required class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Example1m" >First name</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input type="text" id="form3Example1n" class="form-control form-control-lg" name="last-name" value= "{{ data.l_name }}" required />
+                            <label class="form-label" for="form3Example1n">Last name</label>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <!-- <div class="row">
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Example1m1">Mother's name</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                          <div class="form-outline">
+                            <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Example1n1">Father's name</label>
+                          </div>
+                        </div>
+                      </div> -->
+      
+                      <div class="form-outline mb-4">
+                        <input type="text" id="companyname" class="form-control form-control-lg" name="company" value="{{ data.company }}"/>
+                        <label class="form-label" for="companyname">Company Name [If Any]</label>
+                      </div>
+                      <div class="form-outline mb-4">
+                        <input type="text" id="form3Example8" class="form-control form-control-lg" name="address" value="{{ data.address }}" required />
+                        <label class="form-label" for="form3Example8">Address</label>
+                      </div>
+                      
+      
+                      <div class="row">
+                        <div class="col-md-6 mb-4">
+      
+                          <select class="form-select" name="state" required>
+                            <option {{ data.state }}>{{ data.state }}</option>
+                            <option value="Dhaka">Dhaka</option>
+                            <option value="Chattogram">Chattogram</option>
+                            <option value="Khulna">Khulna</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                            <option value="Rangpur">Rangpur</option>
+                            <option value="Barishal">Barishal</option>
+                            <option value="Mymensingh">Mymensingh</option>
+                            <option value="Sylhet">Sylhet</option>
+                          </select>
+      
+                        </div>
+                        <div class="col-md-6 mb-4">
+      
+                          <select class="form-select" name="service-type" required>
+                            <option value="{{ data.servicetype }}">{{ data.servicetype }}</option>
+                            <option value="bua">Bua</option>
+                            <option value="wifi-dis">Wifi/Dis</option>
+                            <option value="meal">Meal</option>
+                            <option value="others">Others</option>
+                          </select>
+      
+                        </div>
+                      </div>
+      
+                      
+      
+                      <div class="form-outline mb-4">
+                        <input name="phone-number" value="{{ data.phonenumber}}" required type="tel" id="form3Example99" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Example99">Phone Number</label>
+                      </div>
+                      <div class="form-outline mb-4">
+                        <input name="email" value= "{{ data.email }}" type="email" id="form3Example97" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Example97">Email ID</label>
+                      </div>
+                      <div class="form-outline mb-4">
+                        <!-- <input type="email"  class="form-control form-control-lg" /> -->
+                        <textarea id="form3Example97" cols="30" rows="10"class="form-control" name="description">{{ data.description }}</textarea>
+                        <label class="form-label" for="form3Example97">Description</label>
+                      </div>
+      
+                      <div class="d-flex justify-content-end pt-3">
+                        <!-- <button type="button" class="btn btn-light btn-lg">Reset all</button> -->
+                        <button type="submit" class="btn btn-warning btn-lg ms-2">Submit</button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="field">
-            <label>Compnay Name [If Any?]</label>
-            <div class="two fields">
-              <div class="field">
-                <input type="text" name="company" value="{{ data.company }}">
-              </div>
-              <div class="field">
-                <input type="text" name="trade-licence" value="{{ data.tradelicence}}" >
-              </div>
-            </div>
-          </div>
-        <div class="field">
-          <label>Address</label>
-          <div class="fields">
-            <div class="twelve wide field">
-              <input type="text" name="address" value="{{ data.address }}" required>
-            </div>
-            <div class="four wide field">
-              <input type="text" name="zip-code" value="{{ data.zipcode }}" >
-            </div>
-          </div>
-        </div>
-        <div class="field">
-            <label>Contact Information</label>
-            <div class="two fields">
-              <div class="field">
-                <input type="text" name="phone-number" value="{{ data.phonenumber}}" required>
-              </div>
-              <div class="field">
-                <input type="text" name="email" value= "{{ data.email }}">
-              </div>
-            </div>
-          </div>
-        <div class="two fields">
-          <div class="field">
-            <label>State</label>
-            <select class="ui fluid dropdown" name="state" required>
-              <option value="{{ data.state }}">State</option>
-            <option value="dhaka">Dhaka</option>
-            <option value="AK">Alaska</option>
-            <option value="AZ">Arizona</option>
-            <option value="AR">Arkansas</option>
-            <option value="CA">California</option>
-            <option value="CO">Colorado</option>
-            <option value="CT">Connecticut</option>
-            <option value="DE">Delaware</option>
-            <option value="DC">District Of Columbia</option>
-            <option value="FL">Florida</option>
-            <option value="GA">Georgia</option>
-            <option value="HI">Hawaii</option>
-            <option value="ID">Idaho</option>
-          
-            </select>
-          </div>
-          <div class="field">
-            <label>Service Type</label>
-            <select class="ui fluid dropdown" name="service-type" value="{{ data.servicetype }}" required>
-              <option value="">Service Type</option>
-            <option value="bua">Bua</option>
-            <option value="wifi-dis">Wifi/Dis</option>
-            <option value="meal">Meal</option>
-            <option value="others">Others</option>
-            
-          
-            </select>
-          </div>
-          
-        </div>
-        <div class="ui form">
-            <div class="field">
-              <label>Description</label>
-              <textarea name="description" required value="">{{ data.description }}</textarea>
-            </div>
-            
-             </div>
-          </div>
-        </div>
-        
-        
-         
-          
-    
-        <div ><input class="ui button" tabindex="0" type="submit" style="margin-top: 20px;"></div>
-      </form>
+      </section>
 </body>
 </html>
