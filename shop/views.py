@@ -91,11 +91,10 @@ def savePost(request):
         "location":location,
         "date":datetime.datetime.now(),
     }
-    print(post)
+    
     db=DBConnect.getInstance()
     collection=db["post"]
     collection.insert_one(post)
-    print(post)
     return render(request,"create_post.html",{"msg":"posted"})
 
 def addComment(request):
@@ -133,8 +132,10 @@ def seeAllPost(request):
     posts = collection.find({"category":category})
     for i in posts:
         comments=getAllComment(i)
+        usr=getUsr(i['email'])
         
         postShow={
+            "name":usr['name'],
             "postNo":i["_id"],
             "content": i['content'],
             "comment":comments,
@@ -187,8 +188,9 @@ def myPosts(request):
     posts = collection.find({"email":email})
     for i in posts:
         comments=getAllComment(i)
-        
+        usr=getUsr(i['email'])
         postShow={
+            "name":usr['name'],
             "postNo":i["_id"],
             "content": i['content'],
             "comment":comments,
@@ -206,7 +208,6 @@ def myPosts(request):
         allPosts.append(postShow)
     
     data={}
-    data['name']=usr['name']
     data['posts']=allPosts
     return  render(request,"my_posts.html",data)
     
@@ -231,8 +232,9 @@ def search_product(request):
     
     for i in data:
         comments=getAllComment(i)
-        
+        usr=getUsr(i['email'])
         postShow={
+            "name":usr['name'],
             "postNo":i["_id"],
             "content": i['content'],
             "comment":comments,
