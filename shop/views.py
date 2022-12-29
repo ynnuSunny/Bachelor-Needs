@@ -52,32 +52,15 @@ def getUsr(email_):
 def savePost(request):
     email=request.session['email']
     photo_name=None
-    try:
-        uploaded_file = request.FILES["photo"]
-        fs = FileSystemStorage()
-        photo_name=fs.save(uploaded_file.name, uploaded_file)
-    except:
-        pass
+    
+    uploaded_file = request.FILES["photo"]
+    fs = FileSystemStorage()
+    photo_name=fs.save(uploaded_file.name, uploaded_file)
 
-    price=0
-
-    try:
-        price=int(request.POST['price'])
-    except:
-        price=0
+    price=request.POST['price']
     category=request.POST['category']
     location=request.POST['location']
-
-
-
     postContent=request.POST['postcontent']
-
-    #empty post
-    if(len(postContent)==0):
-        return render(request, 'html/create_post.html',{"msg":"post cannot be empty"})
-
-
-
 
 
 
@@ -95,8 +78,36 @@ def savePost(request):
     db=DBConnect.getInstance()
     collection=db["post"]
     collection.insert_one(post)
-    print(post)
-    return render(request,"create_post.html",{"msg":"posted"})
+    
+    collection=db["post"]
+    fs= FileSystemStorage()
+    allPosts=[]
+    usr=getUsr(email)
+    posts = collection.find({"email":email})
+    for i in posts:
+        comments=getAllComment(i)
+
+        postShow={
+            "postNo":i["_id"],
+            "content": i['content'],
+            "comment":comments,
+            "date":i['date'],
+            "photo":None,
+            "category":i["category"],
+            "price": i['price'],
+            "location":i['location'],
+        }
+
+        if(i['photo']):
+            postShow['photo']=fs.url(i['photo'])
+
+
+        allPosts.append(postShow)
+
+    data={}
+    data['name']=usr['name']
+    data['posts']=allPosts
+    return  render(request,"my_posts.html",data)
 
 def addComment(request):
     content=request.POST["comment"]

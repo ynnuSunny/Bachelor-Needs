@@ -45,16 +45,16 @@
      <div class="menu-bar"  style="position: fixed; top: 0; height: 100px; overflow: hidden; z-index: 1;">
         <a href="{% url 'home' %}"><h1 class="logo">BachelorPoint<span>.Com</span></h1></a> 
         <div class="search">
-         <form action="{% url 'part_time_job:Search_job' %}">
-             <input type="text"
-                 placeholder=" Search Courses"
-                 name="search">
-             <button type="submit">
-                 <i class="fa fa-search"
-                     style="font-size: 18px;">
-                 </i>
-             </button>
-         </form>
+         <form action="{% url 'serviceProvider:search' %}">
+            <input type="text"
+                placeholder=" Search Service Provider"
+                name="search">
+            <button type="submit">
+                <i class="fa fa-search"
+                    style="font-size: 18px;">
+                </i>
+            </button>
+        </form>
         </div>
          <ul>
            <!-- <li><a href="{% url 'home' %}">Home</a></li> -->
@@ -135,14 +135,12 @@
                                   <div class="timeline-content">
                                      <p>
   
-                                         <div class="card-body">
-                                         <!-- <h5 class="card1" style="font-family: arial; font-weight: bold; font-size: 17px;">Job Title : {{ i.job_title }}</h5> -->
-                                         <h5 class="card1" style="font-family: arial; font-weight: bold; font-size: 17px;">name : {{ i.f_name }} {{ i.l_name }}</h5>
-                                          <h5 class="card2" style="font-family: arial; font-weight: bold; font-size: 17px;">Company : {{ i.company }}</h5>
-                                          <!-- <h5 class="card3" style="font-family: arial; font-weight: bold; font-size: 17px;">Gender : {{ i.gender }}</h5> -->
-                                          <h5 class="card4" style="font-family: arial; font-weight: bold; font-size: 17px;">Address : {{ i.address }}</h5>
-                                          <h5 class="card4" style="font-family: arial; font-weight: bold; font-size: 17px;">Description : {{ i.description }}</h5>
-                                          <h5 class="card5" style="font-family: arial; font-weight: bold; font-size: 17px;"><a>View Details</a></h5>
+                                       <div class="card-body">
+                                       
+                                          <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Name : </span>  <span style="color: black; font-size: 17px;">{{ i.f_name }} {{ i.l_name }}</span></div>
+                                         <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Company : </span>  <span style="color: black;font-size: 17px;">{{ i.company }}</span></div>
+                                         <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Address :  </span>  <span style="color: black;font-size: 17px;">{{ i.address }}</span></div> 
+                                         <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Description : </span>  <span style="color: black;font-size: 17px;">{{ i.description }}</span></div> 
   
                                          </div>
                                      </p>
@@ -165,7 +163,7 @@
                                      </div> -->
                                   </div>
                                   <div class="timeline-footer">
-                                     <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Contact</a>
+                                     <a href="tel:{{ i.contact }}" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Contact</a>
                                      
                                </div>
                                <!-- end timeline-body -->

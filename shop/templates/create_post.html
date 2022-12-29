@@ -72,7 +72,7 @@
 
     <div class="formbold-form-wrapper" style="background-color: #eee;">
 
-      <form action="{% url 'shop:savePost' %}" method="POST">
+      <form action="{% url 'shop:savePost' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
         <div class="formbold-input-flex">

@@ -12,7 +12,8 @@ urlpatterns =[
     path('userVarification/',views.userVarification, name="userVarification"),
     path('userAddPost/',views.userAddPost,name = 'user-add-post'),
     path('userProfile',views.profile,name='user-profile'),
-    path('userUpdateProfile',views.updateProfile,name='user-update-profile')
+    path('userUpdateProfile',views.updateProfile,name='user-update-profile'),
+    path('searchPost',views.searchPost,name='searchPost'),
 
     
 ]

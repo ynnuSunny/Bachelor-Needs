@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'userStyle/home.css' %}" />
     <!-- <link rel="stylesheet" type="text/css" href="post_show.css" /> -->
     <link rel="stylesheet" href="{% static 'post_show.css' %}" />
-    <title>Part time job</title>
+    <title>Services</title>
 
     <style>
       .search input[type=text]{
@@ -45,9 +45,9 @@
    <div class="menu-bar"  style="position: fixed; top: 0; height: 100px; overflow: hidden; z-index: 1;">
       <a href="{% url 'home' %}"><h1 class="logo">BachelorPoint<span>.Com</span></h1></a> 
       <div class="search">
-       <form action="{% url 'part_time_job:Search_job' %}">
+       <form action="{% url 'serviceProvider:search' %}">
            <input type="text"
-               placeholder=" Search Courses"
+               placeholder=" Search Service Provider"
                name="search">
            <button type="submit">
                <i class="fa fa-search"
@@ -128,21 +128,19 @@
                              <!-- begin timeline-body -->
                              <div class="timeline-body">
                                 <div class="timeline-header">
-                                   <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
-                                   <span class="username"><h1>{{ i.job_title }}</h1></span>
-                                   <span class="pull-right text-muted">18 Views</span>
+                                   <!-- <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span> -->
+                                   <h1>{{ i.servicetype }}</h1>
+                                   
                                 </div>
                                 <div class="timeline-content">
                                    <p>
 
                                        <div class="card-body">
-                                       <!-- <h5 class="card1" style="font-family: arial; font-weight: bold; font-size: 17px;">Job Title : {{ i.job_title }}</h5> -->
-                                       <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Type : </span>  <span style="color: black; font-size: 17px;">{{ i.job_type }}</span></div>
-                                       <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Description : </span>  <span style="color: black;font-size: 17px;">{{ i.job_description }}</span></div>
-                                       <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Salary : </span>  <span style="color: black;font-size: 17px;">{{ i.salary }}</span></div> 
-                                       <!-- <h5 class="card2" style="font-family: arial; font-weight: bold; font-size: 17px;">Job Type : {{ i.job_type }}</h5>
-                                       <h5 class="card2" style="font-family: arial; font-weight: bold; font-size: 17px;">Job Description : {{ i.job_description }}</h5>
-                                       <h5 class="card3" style="font-family: arial; font-weight: bold; font-size: 17px;">Salary : {{ i.salary }}</h5> -->
+                                       
+                                        <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Name : </span>  <span style="color: black; font-size: 17px;">{{ i.f_name }} {{ i.l_name }}</span></div>
+                                       <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Company : </span>  <span style="color: black;font-size: 17px;">{{ i.company }}</span></div>
+                                       <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Address :  </span>  <span style="color: black;font-size: 17px;">{{ i.address }}</span></div> 
+                                       <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Description : </span>  <span style="color: black;font-size: 17px;">{{ i.description }}</span></div> 
 
                                        </div>
                                    </p>
@@ -166,22 +164,7 @@
                                 </div>
                                 <div class="timeline-footer">
                                    <a href="tel:{{ i.contact }}" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Contact</a>
-                                   <!-- <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                   <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
-                                </div> -->
-                                <!-- <div class="timeline-comment-box">
-                                   <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
-                                   <div class="input">
-                                      <form action="">
-                                         <div class="input-group">
-                                            <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
-                                            <span class="input-group-btn p-l-10">
-                                            <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
-                                            </span>
-                                         </div>
-                                      </form>
-                                   </div>
-                                </div> -->
+                                   
                              </div>
                              <!-- end timeline-body -->
                           </li>
@@ -209,3 +192,4 @@
 
 </body>
 </html>
+

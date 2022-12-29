@@ -71,9 +71,16 @@ def createjob(request):
         "job_type" : job_type
 
     }
-    print(jobInfo)
-    #collection.insert_one(jobInfo)
-    return redirect("/job_home")
+    #print(jobInfo)
+    collection.insert_one(jobInfo)
+    collection = db['jobcreateinfo']
+    data = collection.find({})
+    data = list(data)
+    content = {
+         'data' : data
+      }
+    print(content)
+    return render(request,"job_home.html",content)
 
 def Search_job(request):
     search_post = request.GET.get('search')

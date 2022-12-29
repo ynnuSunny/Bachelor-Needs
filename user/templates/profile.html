@@ -14,13 +14,19 @@
   
 </head>
 <body>
-    <div class="menu-bar" >
+  <nav class="navbar navbar-light bg-light" style="background-color: #141D28;">
+    <div class="container-fluid" style="background-color: #141D28;position: fixed; top: 0; height: 100px; overflow: hidden; z-index: 1; ">
+      <a href="{% url 'home' %}"><h1 class="logo">BachelorPoint<span>.Com</span></h1></a>
+      
+    </div>
+  </nav>
+    <!-- <div class="menu-bar" >
       <a href="{% url 'home' %}"><h1 class="logo">BachelorPoint<span>.Com</span></h1></a> 
        <ul>
          <li><a href="{% url 'home' %}">Home</a></li>
          <li><a href="{% url 'user-profile' %}">Profile</a></li>
          <li><a href="{% url 'user-add-post' %}">Add Posts</a></li>
-         <!---<li><a href="#">SignUp</a>-->
+         <li><a href="#">SignUp</a>
          </li>
          <li><a href="#">Services <i class="fas fa-caret-down"></i></a>
  
@@ -40,9 +46,9 @@
          <li><a href="{% url 'shop:shopHome' %}">Shop Section</a></li>
          <li><a href="{% url 'user-logout' %}">Logout</a></li>
        </ul>
-     </div>
+     </div> -->
      
-    <section style="background-color: #eee;">
+    <section style="background-color: #eee; margin-top: 50px;" >
         <div class="container py-5">
           <div class="row">
             <div class="col">

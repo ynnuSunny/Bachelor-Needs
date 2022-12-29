@@ -206,3 +206,44 @@ def logout(request):
   for key in session_keys:
     del request.session[key]
   return render(request,"main.html")
+
+
+def search(request):
+  search_post = request.GET['search']
+  db= DBConnect.getInstance()
+  collection = db['service']
+  data = collection.find({ "company": {"$regex": search_post,"$options":'i'}})
+  data= list(data)
+  data1 = collection.find({ "servicetype": {"$regex": search_post,"$options":'i'}})
+  data2 = collection.find({ "description": {"$regex": search_post,"$options":'i'}})
+  data3 = collection.find({ "address": {"$regex": search_post,"$options":'i'}})
+  
+  for i in data1:
+      if(i in data):
+          continue
+      data.append(i)
+  for i in data2:
+      if(i in data):
+          continue
+      data.append(i)
+  for i in data3:
+      if(i in data):
+          continue
+      data.append(i)
+
+  
+  allPosts=[]
+
+
+  for i in data:
+      postShow={
+          "f_name":i["f_name"],
+          "l_name": i['l_name'],
+          "company":i['company'],
+          "address":i['address'],
+          "description":i["description"],
+          
+      }
+
+      allPosts.append(postShow)
+  return  render(request,"search_result2.html",{"data":allPosts})

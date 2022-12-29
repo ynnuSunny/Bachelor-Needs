@@ -262,7 +262,63 @@ def userAddPost(request):
 
     }
     collection.insert(postInfo)
-    return render(request,"home.html")
+    
+    collection = db['homePosts']
+    data = collection.find({"postType":"basic"})
+    fs = FileSystemStorage()
+    allData = []
+    for i in data:
+       img = i['images']
+       i['images'] = fs.url(img)
+       allData.append(i)
+    contest = {
+         'data' : allData
+      }
+    return render(request,"home.html",contest)
 
 def viewPost(request):
   pass
+
+
+def searchPost(request):
+    search_post = request.GET['search']
+    db= DBConnect.getInstance()
+    collection = db['homePosts']
+    data = collection.find({ "location": {"$regex": search_post,"$options":'i'}})
+    data= list(data)
+    data1 = collection.find({ "description": {"$regex": search_post,"$options":'i'}})
+    data2 = collection.find({ "state": {"$regex": search_post,"$options":'i'}})
+    
+    for i in data1:
+        if(i in data):
+            continue
+        data.append(i)
+    for i in data2:
+        if(i in data):
+            continue
+        data.append(i)
+
+    fs= FileSystemStorage()
+    allPosts=[]
+
+
+    for i in data:
+        postShow={
+            "postNo":i["_id"],
+            "postAdmin": i['postAdmin'],
+            "location":i['location'],
+            "state":i['state'],
+            "photo":None,
+            "phonenumber":i["phonenumber"],
+            "rent": i['rent'],
+            "description":i['description'],
+        }
+
+        if(i['images']):
+            postShow['photo']=fs.url(i['images'])
+
+
+        allPosts.append(postShow)
+
+    
+    return  render(request,"search_result.html",{"data":allPosts})
