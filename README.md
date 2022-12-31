@@ -20,7 +20,7 @@
 &nbsp;
 &nbsp;
 ## 💠 **Introductions**
-  An alrounder helper for undergraduate student. <sub>(check screenshots)</sub>
+  An alrounder helper for undergraduate student. <sub></sub>
 
 &nbsp;
 &nbsp;
