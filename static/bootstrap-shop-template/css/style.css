@@ -61,7 +61,7 @@ body {
   line-height: 1.5;
   color: #6F6F6F;
   text-align: left;
-  background-color: #fff;
+  background-color: #e9e9e9;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -2364,15 +2364,15 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #212529;
-  background-color: #D19C97;
-  border-color: #D19C97;
+  color:#f2f3f5;
+  background-color: #10274a;
+  border-color: #10274a;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #c5837c;
-  border-color: #c17a74;
+  background-color: #3974cc;
+  border-color: #3974cc;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -6094,13 +6094,13 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #D19C97 !important;
+  background-color: #9eb6db !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #c17a74 !important;
+  background-color: #5c89cc !important;
 }
 
 .bg-secondary {

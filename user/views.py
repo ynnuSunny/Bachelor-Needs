@@ -249,9 +249,11 @@ def userAddPost(request):
     uploaded_file = request.FILES['images']
     fs = FileSystemStorage()   
     photo_name=fs.save(uploaded_file.name, uploaded_file)
-    
+    adminCollection = db["users"]
+    old_data = adminCollection.find_one({'email':email})
     postInfo = {
        'postAdmin':email,
+       'postAdminName':old_data['name'],
        'state' : request.POST['state'],
        'postType' : 'basic',
        'location': request.POST['location'],

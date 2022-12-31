@@ -228,8 +228,8 @@ def search_product(request):
     usr=getUsr(email)
     collection = db['post']
     data = collection.find({ "content": {"$regex": search_post,"$options":'i'}})
-    data= list(data)
-    data1 = collection.find({ "HomeandLiving": {"$regex": search_post,"$options":'i'}})
+    data = list(data)
+    data1 = collection.find({ "category": {"$regex": search_post,"$options":'i'}})
 
     for i in data1:
         if(i in data):

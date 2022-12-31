@@ -13,7 +13,7 @@
 
 body {
   font-family: sans-serif;
- 
+
 }
 
 .logo {
@@ -97,7 +97,7 @@ body {
 
 .dropdown-menu ul li:hover .dropdown-menu-1 {
   display: block;
- 
+
   left: 150px;
   top: 0;
   background-color: var(--color-black);
@@ -112,12 +112,12 @@ body {
     min-height: 600px;
     align-items: center;
     justify-content: center;
-    background-color: #1d1f20;
+    background-image: url("https://www.bigdataframework.org/wp-content/uploads/2022/07/blockchain-network-concept-scaled.jpg");
 }
 h1{
     font-family: "Incosolata", Consolas, monospace;
     font-size: 4em;
-    color: #d7b94c;
+    color: #2e63b3;
 }
 .typewriter{
     margin-left: 15%;
@@ -154,12 +154,12 @@ h1{
    text-align: center;
    font-weight: 400;
    font-size: 20px;
-   font-family: arial;   
+   font-family: arial;
 }
 
 .button-75 {
   align-items: center;
-  background-image: linear-gradient(135deg, #f34079 40%, #fc894d);
+  background-image:#072e52;
   border: 0;
   border-radius: 10px;
   box-sizing: border-box;
@@ -216,10 +216,10 @@ h1{
 }
 .s1{
     font-size: 40px;
-    margin-left: 36%;
+    margin-left: 40%;
     margin-top: 50px;
     font-weight: 800;
-    color: orange;
+    color: #2e63b3;
 }
 .sv1{
     height: 300px;
@@ -236,12 +236,12 @@ h1{
 }
 .tc{
     font-family: arial;
-    font-size:18px;  
-    padding-left: 12%;  
+    font-size:18px;
+    padding-left: 12%;
     padding-top: 20px;
 }
 .img1{
- 
+
     width: 48%;
    /* border: 1px solid black;*/
     height: 300px;
@@ -272,6 +272,5 @@ h1{
 }
 .f4{
     height: 400px;
-    width: 20%;   
+    width: 20%;
 }
-
