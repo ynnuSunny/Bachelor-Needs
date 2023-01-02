@@ -14,6 +14,7 @@ urlpatterns =[
     path('userProfile',views.profile,name='user-profile'),
     path('userUpdateProfile',views.updateProfile,name='user-update-profile'),
     path('searchPost',views.searchPost,name='searchPost'),
-
-    
+    path('messageOneToOne',views.messageOneToOne,name='messageOneToOne'),
+    path('saveMsg',views.saveMsg,name='saveMsg'),
+    path('myMsgList',views.myMsgList,name='myMsgList'),
 ]

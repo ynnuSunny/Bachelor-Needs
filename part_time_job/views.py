@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.db.models import Q
 import smtplib
 import random
-
+from bson.objectid import ObjectId
 
 
 class DBConnect:
@@ -41,9 +41,27 @@ def job_home(request):
     content = {
          'data' : data
       }
-    print(content)
     return render(request,"job_home.html",content)
 
+def myPosts(request):
+  db = DBConnect.getInstance()
+  collection = db['jobcreateinfo']
+  email=request.session['email']
+  data = collection.find({"email":email})
+  data = list(data)
+  fs = FileSystemStorage()
+  content = {
+        'data' : data
+    }
+  return render(request,"my_posts2.html",content)
+
+def deletePost(request):
+  db = DBConnect.getInstance()
+  collection = db['jobcreateinfo']
+  id_= request.GET['id']
+  collection.delete_one({"salary":id_})
+  return redirect(request.META.get('HTTP_REFERER'))
+  
 
 def post_job(request):
     return render(request,"post_job.html")

@@ -59,6 +59,7 @@
        <ul>
          <!-- <li><a href="{% url 'home' %}">Home</a></li> -->
          <li><a href="{% url 'user-profile' %}">Profile</a></li>
+         <li><a href="{% url 'part_time_job:myPosts' %}">My Posts</a></li>
          <li><a href="{% url 'part_time_job:post_job' %}">Add Job Posts</a></li>
          <!---<li><a href="#">SignUp</a>-->
             <li><a href="{% url 'serviceProvider:user-side' %}">Service</a></li>
@@ -130,7 +131,7 @@
                                 <div class="timeline-header">
                                    <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
                                    <span class="username"><h1>{{ i.job_title }}</h1></span>
-                                   <span class="pull-right text-muted">18 Views</span>
+                                   <!-- <span class="pull-right text-muted">18 Views</span> -->
                                 </div>
                                 <div class="timeline-content">
                                    <p>

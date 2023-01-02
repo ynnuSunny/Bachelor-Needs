@@ -55,10 +55,9 @@
     </form>
      </div>
       <ul>
-        <!-- <li><a href="{% url 'home' %}">Home</a></li> -->
+        
         <li><a href="{% url 'user-profile' %}">Profile</a></li>
         <li><a href="{% url 'user-add-post' %}">Add Posts</a></li>
-        <!---<li><a href="#">SignUp</a>-->
         <li><a href="{% url 'serviceProvider:user-side' %}">Services</a></li>
         <li><a href="{% url 'part_time_job:job_home' %}">Find Job</a></li>
         <li><a href="{% url 'shop:showPostCategory' %}">Shop Section</a></li>
@@ -77,12 +76,6 @@
     <div class="carousel-item active">
       <img src="{{ i.images }}" class="d-block w-100" alt="...">
     </div>
-    <!-- <div class="carousel-item">
-      <img src="{% static 'userStyle/img/backimg.jpg' %}" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'userStyle/img/backimg.jpg' %}" class="d-block w-100" alt="...">
-    </div> -->
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -95,20 +88,20 @@
   </div>
   <div class="card-body">
     <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Post Admin:</span>  <span style="color: black">{{ i.postAdminName }}</span></div>
-    <!-- <h5 class="card1" style="font-family: arial; font-weight: bold; font-size: 17px;">Posted By : </h5> -->
-    <!-- <h5 class="card2" style="font-family: arial; font-weight: bold; font-size: 17px;">State : {{ i.state }}</h5> -->
     <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">State :</span>  <span style="color: black">{{ i.state }}</span></div>
     <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Location :</span>  <span style="color: black">{{ i.location }}</span></div>
-    <!-- <h5 class="card3" style="font-family: arial; font-weight: bold; font-size: 17px;">Location : {{ i.location }}</h5> -->
     <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Rent Charge :</span>  <span style="color: black">{{ i.rent }}</span></div>
-    <!-- <h5 class="card4" style="font-family: arial; font-weight: bold; font-size: 17px;">Rent Charge : {{ i.rent }}</h5> -->
     <div id="p1"><span style="font-family: arial; font-weight: 800; font-size: 17px; color:#6370bb;">Details :</span>  <span style="color: black"> {{i.description}}</span></div>
-    <!-- <h5 class="card5" style="font-family: arial; font-weight: bold; font-size: 17px;"><a>Details : {{i.description}}</a></h5> -->
     
     <a href="tel:{{i.contact}}" class="btn btn-primary">
       <div class="phone-number phone-number--below">
           <i class="fa fa-phone" aria-hidden="true"></i> contact us</span>
       </div>
+  </a>
+  <a href="{% url 'messageOneToOne' %}?email={{i.postAdmin}}" class="btn btn-primary">
+    <div class="phone-number phone-number--below">
+        <i  aria-hidden="true"></i> message </span>
+    </div>
   </a>
     
   </div>

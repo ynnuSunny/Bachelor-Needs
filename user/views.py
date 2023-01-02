@@ -1,3 +1,4 @@
+import datetime
 import collections
 import email
 from django.shortcuts import HttpResponse, redirect, render
@@ -30,7 +31,105 @@ class DBConnect:
         DBConnect.__instance = db
 # Create your views here.
 
+def getUsr(email_):
+    db=DBConnect.getInstance()
+    collection=db["users"]
+    usr=collection.find_one({"email":email_})
+    return usr
 
+def myMsgList(request):
+  db=DBConnect.getInstance()
+  collection=db["message"]
+  email=request.session['email']
+  
+  my_chat= collection.find({"from":email})
+  my_chat2= collection.find({"to":email})
+
+  chat_list=[]
+  for i in my_chat:
+    a=getUsr(i['from'])
+    if(a not in chat_list):
+      chat_list.append(a)
+    a=getUsr(i['to'])
+    if(a not in chat_list):
+      chat_list.append(a)
+  
+  for i in my_chat2:
+    a=getUsr(i['from'])
+    if(a not in chat_list):
+      chat_list.append(a)
+    a=getUsr(i['to'])
+    if(a not in chat_list):
+      chat_list.append(a)
+  
+  try:
+    chat_list.remove(getUsr(email))
+  except:
+    pass
+  return  render(request,'myChat.html',{"chatWith":chat_list})
+    
+
+
+
+
+def messageOneToOne(request):
+    nid=request.session['email']
+    usrNid=request.GET['email']
+    if(nid==usrNid):
+      return redirect(request.META.get('HTTP_REFERER'))
+
+    me=getUsr(nid)
+    other=getUsr(usrNid)
+    message={}
+    fs = FileSystemStorage()
+    myData={
+        "name":me['name'],
+        "nid":me['email'],
+        'dp':fs.url(me['dp']),
+    }
+
+    message['myInfo']=myData
+    message['otherInfo']={
+        "name": other['name'],
+        "nid": other['email'],
+        'dp': fs.url(other['dp']),
+    }
+
+
+    db = DBConnect.getInstance()
+    collection = db["message"]
+    msgs=[]
+    myMsg=collection.find({"from":nid,"to":usrNid})
+    for i in myMsg:
+        msgs.append(i)
+
+    toMeMsg=collection.find({"from":usrNid,"to":nid})
+    for i in toMeMsg:
+        msgs.append(i)
+
+    msgs=sorted(msgs,key=lambda d: d['time'])
+    message['conversation']=msgs
+
+    return render(request, "message.html",{"message":message})
+
+def saveMsg(request):
+
+    from_=request.GET['myNid']
+    to_ =request.GET['otherNid']
+    now_=datetime.datetime.now()
+    db = DBConnect.getInstance()
+    collection = db["message"]
+    msg=request.GET['message']
+    if(len(msg)==0):
+        return redirect(request.META.get('HTTP_REFERER'))
+    msgBlock={
+        "from":from_,
+        "to":to_,
+        "message":msg,
+        "time":now_,
+    }
+    collection.insert_one(msgBlock)
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 
@@ -55,6 +154,7 @@ def login(request):
       return redirect('/home')
     except:
       return render(request,"login.html")
+  
   if(request.method=='POST'):
     db = DBConnect.getInstance()
     collection = db["users"]
