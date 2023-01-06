@@ -1,6 +1,6 @@
 
 
-<h1 align="center">Bachelor Point</h1>
+<h1 align="center">Bachelor Needs</h1>
 <div align="center">
   <strong>A bachelor friendly site</strong>
 </div>
